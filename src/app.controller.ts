@@ -1,12 +1,24 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Body, Controller, Get, Post, Render, Header } from '@nestjs/common';
+import { PackageDto } from './package.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index')
+  root() {
+    return {};
   }
+
+  @Post()
+  @Render('package')
+  handlePackage(@Body() dto: PackageDto) {
+    console.log(dto);
+    return dto;
+  }
+
+  // @Post()
+  // @Render('color')
+  // handleColor(@Body() body: dto): object {
+  //   return body;
+  // }
 }
